@@ -1,0 +1,49 @@
+﻿<Page
+    x:Class="RandomAccessStreamDataProviderExample.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RandomAccessStreamDataProviderExample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:ui="using:PSPDFKit.UI">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <ui:PdfView
+                Grid.Row="0"
+                Name="PDFView"/>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Button Content="Open From DataProvider" Command="{x:Bind ViewModel.OpenPDFCommand}" Margin="10, 0, 0, 0"/>
+                <Button Content="Save To DataSink" Command="{x:Bind ViewModel.SavePDFCommand}" Margin="20, 0, 0, 0"/>
+                <ToggleButton Content="Incremental Save" Margin="20, 0, 0, 0" Name="IncrementalSave" IsChecked="{x:Bind ViewModel.IncrementalSave, Mode=TwoWay}"></ToggleButton>
+                <ToggleButton Content="Flatten Annotations" Margin="20, 0, 0, 0" Name="FlattenAnnotations" IsChecked="{x:Bind ViewModel.FlattenAnnotations, Mode=TwoWay}"></ToggleButton>
+            </StackPanel>
+        </Grid>
+        <!--  Adaptive triggers  -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>
